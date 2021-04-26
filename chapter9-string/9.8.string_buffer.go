@@ -8,7 +8,7 @@ import (
 	"fmt"
 )
 
-func main() {
+func main8() {
 	var buffer bytes.Buffer
 	for i := 0; i < 500; i++ {
 		buffer.WriteString("Z")
