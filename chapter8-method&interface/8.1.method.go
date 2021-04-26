@@ -18,7 +18,7 @@ func (m *Movie) summary() string {
 	fmt.Println(r)
 	return m.Name + ", " + r
 }
-func main() {
+func main1() {
 	m := Movie{
 		Name:   "Spiderman",
 		Rating: 3.2,
