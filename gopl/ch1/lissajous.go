@@ -13,7 +13,7 @@ import (
 	"time"
 )
 
-var palette = []color.Color{color.White, color.Black}
+var palette = []color.Color{color.Black, color.White}
 
 const (
 	whiteIndex = 0
@@ -57,5 +57,5 @@ func lissajous(out io.Writer) {
 		anim.Delay = append(anim.Delay, delay)
 		anim.Image = append(anim.Image, img)
 	}
-	gif.EncodeAll(out, &anim)
+	_ = gif.EncodeAll(out, &anim)
 }
