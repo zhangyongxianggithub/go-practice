@@ -1,4 +1,4 @@
-package ch7
+package mod
 
 import (
 	"bufio"
