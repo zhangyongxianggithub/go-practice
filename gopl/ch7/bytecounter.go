@@ -2,6 +2,7 @@ package ch7
 
 import (
 	"bufio"
+	"strings"
 )
 
 // 定义类型
@@ -15,19 +16,30 @@ func (c *ByteCounter) Write(p []byte) (int, error) {
 type WordCounter int
 
 func (w *WordCounter) Write(p []byte) (int, error) {
-	advance, _, err := bufio.ScanWords(p, false)
+	count, err := retCount(p, bufio.ScanWords)
 	if err == nil {
-		*w += WordCounter(advance)
+		*w += WordCounter(count)
 	}
-	return advance, err
+	return count, err
 }
 
 type LineCounter int
 
 func (l *LineCounter) Write(p []byte) (int, error) {
-	advance, _, err := bufio.ScanLines(p, true)
+	count, err := retCount(p, bufio.ScanLines)
 	if err == nil {
-		*l += LineCounter(advance)
+		*l += LineCounter(count)
 	}
-	return advance, err
+	return count, err
+}
+
+func retCount(p []byte, fn bufio.SplitFunc) (int, error) {
+	s := string(p)
+	scanner := bufio.NewScanner(strings.NewReader(s))
+	scanner.Split(fn)
+	count := 0
+	for scanner.Scan() {
+		count++
+	}
+	return count, scanner.Err()
 }
