@@ -1,5 +1,6 @@
 package main
 
+// 输出水的沸点
 import (
 	"fmt"
 )
