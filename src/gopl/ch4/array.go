@@ -33,3 +33,9 @@ const (
 )
 
 var symbol = [...]string{USD: "$", EUR: "e", GBP: "r", RMB: "¥"}
+
+func zero(ptr *[32]byte) {
+	for i := range ptr {
+		ptr[i] = 0
+	}
+}
