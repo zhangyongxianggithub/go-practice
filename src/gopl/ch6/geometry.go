@@ -21,4 +21,5 @@ func main() {
 	q := Point{4, 6}
 	fmt.Println("函数调用:", Distance(p, q)) // "5" 函数调用
 	fmt.Println("方法调用:", p.Distance(q))  // 方法调用
+	fmt.Println("方法调用:", q.Distance(p))
 }
