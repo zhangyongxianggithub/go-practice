@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"gopl/ch5/links"
+	"go-practice/gopl/ch5/links"
 )
 
 func crawl(url string) []string {
