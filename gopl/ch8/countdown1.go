@@ -14,6 +14,3 @@ func main() {
 	}
 	launch()
 }
-func launch() {
-
-}
