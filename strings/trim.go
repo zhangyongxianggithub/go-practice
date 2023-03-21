@@ -12,5 +12,6 @@ func trim(s, cut string, check func(s, cut string) bool, trimFunction func(s, cu
 	return s
 }
 func main() {
-	fmt.Println(trim("///dsdas///", "/", strings.HasPrefix, strings.TrimPrefix))
+	fmt.Println(trim("////dsdas///", "/", strings.HasPrefix, strings.TrimPrefix))
+	fmt.Println(trim("////dsdas/////", "/", strings.HasSuffix, strings.TrimSuffix))
 }
