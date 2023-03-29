@@ -1,4 +1,4 @@
-package ch9
+package main
 
 import (
 	"sync"
