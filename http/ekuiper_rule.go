@@ -61,7 +61,10 @@ func request(ruleName string, temperature int) {
 }`)
 
 	buffer := bytes.NewBuffer(make([]byte, 0))
-	tpl.Execute(buffer, map[string]any{"RuleName": ruleName, "Temperature": temperature})
+	err := tpl.Execute(buffer, map[string]any{"RuleName": ruleName, "Temperature": temperature})
+	if err != nil {
+		return
+	}
 
 	client := &http.Client{}
 	req, err := http.NewRequest(method, url, buffer)
@@ -78,7 +81,12 @@ func request(ruleName string, temperature int) {
 		return
 	}
 	fmt.Println(res.Status)
-	defer res.Body.Close()
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+			fmt.Println(err)
+		}
+	}(res.Body)
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
