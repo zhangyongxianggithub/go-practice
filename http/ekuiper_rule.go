@@ -54,7 +54,7 @@ func deleteRule(ruleName string) {
 	fmt.Println(string(body))
 }
 func request(ruleName string, temperature int) {
-	url := "http://10.68.115.50:8381/rules"
+	url := "http://10.162.195.165:8381/rules"
 	method := "POST"
 
 	tpl, _ := template.New("rule").Parse(`{
