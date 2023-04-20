@@ -7,6 +7,9 @@ import (
 	"github.com/robfig/cron"
 )
 
+/*
+这是一个官方包内的定时调度库，支持cron表达式，支持固定周期，但是不考虑任务的执行时间，是一个比较简单的调度框架
+*/
 func main() {
 	c := cron.New()
 	c.AddFunc("0/1 * * * * *", func() { fmt.Println(time.Now(), "every second run") })
