@@ -12,10 +12,13 @@ type User struct {
 }
 
 func main() {
+
 	fmt.Println("====模拟注册====")
 	u0 := User{}
-	u0.Password = "pwd"                                                               // 模拟注册是传递的密码
-	hash, err := bcrypt.GenerateFromPassword([]byte(u0.Password), bcrypt.DefaultCost) // 加密处理
+	u0.Password = "pwd" // 模拟注册是传递的密码dwqdwqewqewqewqewqewqeqweqw
+	hash, err := bcrypt.GenerateFromPassword(
+		[]byte(u0.Password),
+		bcrypt.DefaultCost) // 加密处理
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -29,6 +32,7 @@ func main() {
 	// 密码验证
 	err = bcrypt.CompareHashAndPassword([]byte(u1.Password), []byte(loginPwd)) // 验证（对比）
 	if err != nil {
+
 		fmt.Println("pwd wrong")
 	} else {
 		fmt.Println("pwd ok")
