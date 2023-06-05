@@ -32,9 +32,13 @@ type Sink interface {
 type SilentSetting interface {
 	// TODO: 定义支持的几种静默条件设置
 }
-
-type Type struct {
+type Field struct {
+	Code        string `编码`
+	DisplayName string `显示的名字`
+	Type        string `数据类型`
 }
+
+type Type string
 
 type Engine interface {
 	RegisterSource(source Source) error
@@ -43,5 +47,5 @@ type Engine interface {
 	RemoveSink(sink Sink) error
 	GetGraphAnalyzer(typo Type) GraphAnalyzer
 	GetRuleNodeAnalyzer(typo Type, nodeType string) RuleNodeAnalyzer
-	Submit(rule GraphRule)
+	Submit(rule GraphRule) error
 }
