@@ -6,3 +6,4 @@ output
 .*.swo
 **/.idea
 **/log
+.idea
