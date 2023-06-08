@@ -1,33 +1,17 @@
 package handler
 
+import (
+	"icode.baidu.com/baidu/bce-soe/rule-engine/handler/sink"
+	"icode.baidu.com/baidu/bce-soe/rule-engine/handler/source"
+)
+
+type GetSourcesRequest struct {
+}
+
 type RuleHandler interface {
-	GetSources() ([]*Source, error)
-	GetSource(name string) (*Source, error)
-	GetSinks() ([]*Sink, error)
-	GetSink(name string) (*Sink, error)
-}
-
-var _ RuleHandler = new(DefaultRuleHandler)
-
-type DefaultRuleHandler struct {
-}
-
-func (d *DefaultRuleHandler) GetSources() ([]*Source, error) {
-	// TODO implement me
-	panic("implement me")
-}
-
-func (d *DefaultRuleHandler) GetSource(name string) (*Source, error) {
-	// TODO implement me
-	panic("implement me")
-}
-
-func (d *DefaultRuleHandler) GetSinks() ([]*Sink, error) {
-	// TODO implement me
-	panic("implement me")
-}
-
-func (d *DefaultRuleHandler) GetSink(name string) (*Sink, error) {
-	// TODO implement me
-	panic("implement me")
+	GetSources(request GetSourcesRequest) ([]source.Source, error)
+	GetSource(name string) (source.Source, error)
+	GetSinks() ([]sink.Sink, error)
+	GetSink(name string) (sink.Sink, error)
+	CreateRule() error
 }

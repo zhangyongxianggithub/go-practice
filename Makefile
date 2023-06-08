@@ -53,6 +53,7 @@ clean:
 	@echo "clean accomplished"
 
 prepare: check-var git set-env install-doc doc
+	@echo "prepare accomplished"
 
 check-var:
 	$(info GOROOT: $(GOROOT))
@@ -73,6 +74,7 @@ install-doc:
 
 compile:
 	$(GOMOD) tidy
+	@echo "synchronized dependencies accomplished"
 
 package:
 	mkdir -p $(OUTPUT_DIR)
@@ -80,6 +82,7 @@ package:
 
 doc:
 	$(SWAG) init -g server.go -d $(HOMEDIR)/exmaples/example/cmd/server,$(SWAG_SCAN_DIRS) --instanceName=${SWAG_DOC_PREFIX} --parseDependency --parseInternal --generatedTime -o $(HOMEDIR)/doc
+	@echo "generate swagger doc accomplished"
 
 doc-fmt:
 	@$(SWAG) fmt

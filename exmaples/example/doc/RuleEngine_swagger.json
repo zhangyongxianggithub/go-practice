@@ -18,9 +18,9 @@
     },
     "basePath": "/",
     "paths": {
-        "/v1/workspaces/{workspaceID}/projects/{projectName}/analyticsjobs": {
-            "post": {
-                "description": "创建流/批分析JOB",
+        "/soe/rule-engine/sources": {
+            "get": {
+                "description": "自定义Source列表",
                 "consumes": [
                     "application/json"
                 ],
@@ -28,9 +28,38 @@
                     "application/json"
                 ],
                 "tags": [
-                    "analytic"
+                    "source"
                 ],
-                "summary": "创建流/批分析JOB",
+                "summary": "自定义Source列表",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/_.SourceListElement"
+                        }
+                    },
+                    "500": {
+                        "description": "internal server error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/workspaces/{workspaceID}/projects/{projectName}/analyticsjobs": {
+            "post": {
+                "description": "普通函数",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "function"
+                ],
+                "summary": "普通函数",
                 "parameters": [
                     {
                         "type": "string",
@@ -60,6 +89,19 @@
                             "type": "string"
                         }
                     }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "_.SourceListElement": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
                 }
             }
         }

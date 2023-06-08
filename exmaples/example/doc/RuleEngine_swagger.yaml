@@ -5,6 +5,14 @@ consumes:
 - text/plain
 - text/html
 - application/x-www-form-urlencoded
+definitions:
+  _.SourceListElement:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    type: object
 info:
   contact:
     email: zhangyongxiang@baidu.com
@@ -13,11 +21,30 @@ info:
   title: rule engine swagger api specification
   version: "1.0"
 paths:
+  /soe/rule-engine/sources:
+    get:
+      consumes:
+      - application/json
+      description: 自定义Source列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/_.SourceListElement'
+        "500":
+          description: internal server error
+          schema:
+            type: string
+      summary: 自定义Source列表
+      tags:
+      - source
   /v1/workspaces/{workspaceID}/projects/{projectName}/analyticsjobs:
     post:
       consumes:
       - application/json
-      description: 创建流/批分析JOB
+      description: 普通函数
       parameters:
       - description: workspaceId
         in: path
@@ -40,7 +67,7 @@ paths:
           description: internal server error
           schema:
             type: string
-      summary: 创建流/批分析JOB
+      summary: 普通函数
       tags:
-      - analytic
+      - function
 swagger: "2.0"

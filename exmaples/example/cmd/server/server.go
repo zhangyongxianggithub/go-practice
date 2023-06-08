@@ -2,9 +2,14 @@ package main
 
 import (
 	"context"
+	"icode.baidu.com/baidu/bce-soe/rule-engine/controller"
+	"icode.baidu.com/baidu/bce-soe/rule-engine/handler"
+	"icode.baidu.com/baidu/themis/server-go"
+	"icode.baidu.com/baidu/themis/server-go/db"
+
 	// swagger import
-	_ "icode.baidu.com/baidu/bce-soe/rule-engine/exmaples/example/doc"
-	"icode.baidu.com/baidu/bce-soe/rule-engine/exmaples/example/service"
+	_ "icode.baidu.com/baidu/bce-soe/rule-engine/examples/example/doc"
+	"icode.baidu.com/baidu/bce-soe/rule-engine/examples/example/service"
 	"icode.baidu.com/baidu/themis/logger-go"
 	"icode.baidu.com/baidu/themis/server-go/conf"
 	"icode.baidu.com/baidu/themis/server-go/host"
@@ -29,13 +34,20 @@ func main() {
 			logger.Errorf(context.Background(), "failed close logger: %s", err)
 		}
 	}()
-
+	module := &db.Module{}
+	bootstrap := server.NewBootstrap(module)
+	err := bootstrap.Initialize()
+	if err != nil {
+		logger.Fatalf(context.Background(), "init bootstrap error: %v", err)
+	}
 	config := conf.Default()
 	h := host.NewHTTPHost(config)
 	swagger.DocPrefix = "RuleEngine"
+	ruleHandler, _ := handler.NewRuleEngineHandler(config, module)
 
-	// add service
-	svc := service.NewRuleEngineService(config)
+	ruleController, _ := controller.NewRuleController(ruleHandler)
+	// add service & set a rule engine prefix
+	svc := service.NewRuleEngineService(ruleController, "/soe")
 	h.AddService(svc)
 	h.Run()
 }
