@@ -2,27 +2,28 @@ package main
 
 import (
 	"context"
+
 	"icode.baidu.com/baidu/bce-soe/rule-engine/controller"
 	"icode.baidu.com/baidu/bce-soe/rule-engine/handler"
 	"icode.baidu.com/baidu/themis/server-go"
 	"icode.baidu.com/baidu/themis/server-go/db"
 
-	// swagger import
-	_ "icode.baidu.com/baidu/bce-soe/rule-engine/examples/example/doc"
 	"icode.baidu.com/baidu/bce-soe/rule-engine/examples/example/service"
 	"icode.baidu.com/baidu/themis/logger-go"
 	"icode.baidu.com/baidu/themis/server-go/conf"
 	"icode.baidu.com/baidu/themis/server-go/host"
 	"icode.baidu.com/baidu/themis/server-go/swagger"
+	// swagger import
 )
 
-// $(SWAG) init -g server.go -d $(HOMEDIR)/cmd/server,$(SWAG_SCAN_DIRS) --instanceName=${SWAG_DOC_PREFIX}
+// $(SWAG) init -g server.go -d $(HOMEDIR)/cmd/server,$(SWAG_SCAN_DIRS)
+// --instanceName=${SWAG_DOC_PREFIX}
 // --parseDependency --parseInternal --generatedTime -o $(HOMEDIR)/doc/openapi
 //
 //	@title			rule engine swagger api specification
 //	@version		1.0
 //	@description	rule engine api document，restful api
-//	@BasePath		/
+//	@BasePath		/soe
 //	@contact.name	zhangyongxiang
 //	@contact.email	zhangyongxiang@baidu.com
 //	@Accept			json,xml,plain,html,x-www-form-urlencoded

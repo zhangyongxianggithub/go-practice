@@ -17,7 +17,10 @@ type RuleEngineService struct {
 
 var _ host.Service = &RuleEngineService{}
 
-func NewRuleEngineService(controller *controller.SOERuleController, prefix string) *RuleEngineService {
+func NewRuleEngineService(
+	controller *controller.SOERuleController,
+	prefix string,
+) *RuleEngineService {
 	logger.Noticef(context.Background(), "create a rule engine service, config: %v", controller)
 	return &RuleEngineService{Controller: controller, Prefix: prefix}
 }

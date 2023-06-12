@@ -7,4 +7,5 @@ output
 **/.idea
 **/log
 .idea
-exmaples/example/doc
+exmaples/example/docs
+.DS_Store
