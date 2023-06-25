@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	file, err := os.ReadFile("io/f.json")
+	file, err := os.ReadFile("f.json")
 	if err != nil {
 		return
 	}
