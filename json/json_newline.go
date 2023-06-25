@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-const j = `{
+const j1 = `{
 	"field": "dsadsa \\
 dsadsads"
 }`
