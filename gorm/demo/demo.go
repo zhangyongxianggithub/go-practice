@@ -9,11 +9,10 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/sanketplus/go-mysql-lock"
-
 )
 
 func main() {
-	db, _ := sql.Open("mysql", "root:bigdataNV7U@tcp(10.162.195.168:8270)/gorm")
+	db, _ := sql.Open("mysql", "root:163766@tcp(yuhan.bestzyx.com:3306)/gorm")
 
 	locker := gomysqllock.NewMysqlLocker(db)
 	for i := 0; i < 6; i++ {

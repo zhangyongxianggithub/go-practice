@@ -26,7 +26,7 @@ type CreditCard struct {
 
 func main() {
 
-	dsn := "root:bigdataNV7U@tcp(10.162.195.168:8270)/gorm?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := "root:163766@tcp(yuhan.bestzyx.com:3306)/gorm?charset=utf8mb4&parseTime=True&loc=Local"
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic("failed to connect database")
