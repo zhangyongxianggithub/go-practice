@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"net/url"
+)
 
 func main() {
 	defer func() {
@@ -13,4 +16,6 @@ func main() {
 		fmt.Println("third defer")
 	}()
 	fmt.Println("main")
+
+	fmt.Println(url.QueryEscape("/dadasdas/dsadas张"))
 }
