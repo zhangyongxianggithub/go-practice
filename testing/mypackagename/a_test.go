@@ -21,3 +21,21 @@ func TestA(t *testing.T) {
 func TestB(t *testing.T) {
 	log.Println("TestB running")
 }
+
+// func TestDBFeatureA(t *testing.T) {
+// 	defer models.TestDBManager.Reset()
+//
+// 	// Do the tests
+// }
+// func TestDBFeatureB(t *testing.T) {
+// 	defer models.TestDBManager.Reset()
+//
+// 	// Do the tests
+// }
+// func TestMain(m *testing.M) {
+// 	models.TestDBManager.Setup()
+// 	// os.Exit() does not respect defer statements
+// 	code := m.Run()
+// 	models.TestDBManager.Exit()
+// 	os.Exit(code)
+// }
