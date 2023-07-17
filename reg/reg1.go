@@ -10,4 +10,9 @@ func main() {
 
 	fmt.Println(DeviceDevIDPattern.MatchString("aa"))
 
+	m:=map[string]int{"a":1}
+	fmt.Println(m["b"])
+	var a bool
+	fmt.Println(a)
+
 }
