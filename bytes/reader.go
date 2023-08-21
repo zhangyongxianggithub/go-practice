@@ -1,0 +1,4 @@
+package bytes
+
+func main() {
+}
