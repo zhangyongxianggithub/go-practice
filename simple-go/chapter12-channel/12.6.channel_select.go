@@ -1,6 +1,6 @@
-//@program: goPractice
-//@author: zhangyongxiang(zyxfox@foxmail.com)
-//@create: 2021-04-27 02:38
+// @program: goPractice
+// @author: zhangyongxiang(zyxfox@foxmail.com)
+// @create: 2021-04-27 02:38
 package main
 
 import (
@@ -28,7 +28,6 @@ func main6() {
 		fmt.Println("received", msg2)
 	case <-time.After(500 * time.Millisecond):
 		fmt.Println("no messages received, give up")
-
 
 	}
 }

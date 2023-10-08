@@ -1,6 +1,6 @@
-//@program: goPractice
-//@author: zhangyongxiang(zyxfox@foxmail.com)
-//@create: 2021-04-26 01:34
+// @program: goPractice
+// @author: zhangyongxiang(zyxfox@foxmail.com)
+// @create: 2021-04-26 01:34
 package main
 
 import "fmt"

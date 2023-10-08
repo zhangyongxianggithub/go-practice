@@ -1,7 +1,8 @@
 package main
 
 import "fmt"
-//函数外省略类型
+
+// 函数外省略类型
 var s = "Hello world"
 
 func main9() {

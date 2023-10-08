@@ -18,7 +18,7 @@ func main() {
 	m := make(map[string]string)
 	err := json.UnmarshalNoEscape([]byte(j), &m)
 	if err != nil {
-		return 
+		return
 	}
 	fmt.Println(m)
 
