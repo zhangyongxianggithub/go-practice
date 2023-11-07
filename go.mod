@@ -12,7 +12,7 @@ require (
 	github.com/robfig/cron v1.2.0
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/sanketplus/go-mysql-lock v0.0.6
-	github.com/spf13/cobra v1.7.0
+	github.com/spf13/cobra v1.8.0
 	github.com/spf13/viper v1.16.0
 	github.com/xuri/excelize/v2 v2.8.0
 	golang.org/x/crypto v0.13.0
