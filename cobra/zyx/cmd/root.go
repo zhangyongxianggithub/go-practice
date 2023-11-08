@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gookit/goutil/fsutil"
+	"github.com/mitchellh/go-homedir"
 	logger "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -18,9 +18,10 @@ func CommandName() string {
 
 // rootCmd 代表没有调用子命令时的基础命令
 var rootCmd = &cobra.Command{
-	Use:   CommandName(),
-	Short: "一个简单的测试命令",
-	Long:  `一个简单的测试命令`,
+	Use:     CommandName(),
+	Short:   "一个简单的测试命令",
+	Long:    `一个简单的测试命令`,
+	Version: "1.0",
 }
 
 // Execute 将所有子命令添加到root命令并适当设置标志。
@@ -34,21 +35,19 @@ func Execute() {
 
 func initConfig() {
 	configName := CommandName()
-	configFilePath := os.Getenv("HOME") + "/." + strings.ToLower(configName) + "/config.yaml"
 	configEnvPrefix := strings.ToUpper(configName)
-	config := false
-	if fsutil.FileExists(configFilePath) {
-		viper.SetConfigFile(configFilePath)
-		config = true
+	home, err := homedir.Dir()
+	viper.SetConfigType("yaml")
+	viper.AddConfigPath(".")
+	if err == nil {
+		viper.AddConfigPath(home)
+		viper.SetConfigName(".zyx_config")
 	}
 	if env, ok := os.LookupEnv(configEnvPrefix); ok {
 		viper.SetEnvPrefix(env)
-		config = true
 	}
-	if config {
-		err := viper.ReadInConfig()
-		if err != nil {
-			logger.Errorf("read config failed: %v", err)
-		}
+	err = viper.ReadInConfig()
+	if _, ok := err.(viper.ConfigFileNotFoundError); !ok {
+		logger.Errorf("read config failed: %v", err)
 	}
 }

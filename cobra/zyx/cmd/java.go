@@ -10,11 +10,7 @@ var javaCmd = &cobra.Command{
 	Use:   "java",
 	Short: "java 子命令",
 	Long:  `java 子命令`,
-	// Run: func(cmd *cobra.Command, args []string) {
-	// 	fmt.Println("version")
-	// 	fmt.Println("command: ", cmd.Name(), cmd.Short, cmd.Long)
-	// 	fmt.Println("args: ", args)
-	// },
+	Run:   func(cmd *cobra.Command, args []string) {},
 }
 
 func createJavaCommand() *cobra.Command {
