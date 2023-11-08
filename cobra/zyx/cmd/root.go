@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -22,15 +23,23 @@ var rootCmd = &cobra.Command{
 	Short:   "一个简单的测试命令",
 	Long:    `一个简单的测试命令`,
 	Version: "1.0",
+	PersistentPreRun: func(cmd *cobra.Command, args []string) {
+		fmt.Println("root persistent pre run, verbose output: ", verbose)
+	},
 }
+var verbose bool
 
 // Execute 将所有子命令添加到root命令并适当设置标志。
 // 这由 main.main() 调用。它只需要对 rootCmd 调用一次。
 func Execute() {
-	initConfig()
 	if err := rootCmd.Execute(); err != nil {
 		os.Exit(1)
 	}
+}
+
+func init() {
+	cobra.OnInitialize(initConfig)
+	rootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "enable verbose output")
 }
 
 func initConfig() {
@@ -50,4 +59,5 @@ func initConfig() {
 	if _, ok := err.(viper.ConfigFileNotFoundError); err != nil && !ok {
 		logger.Errorf("read config failed: %v", err)
 	}
+	fmt.Println("init config run end")
 }

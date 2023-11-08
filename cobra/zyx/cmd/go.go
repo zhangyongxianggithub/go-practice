@@ -22,6 +22,7 @@ func createGoCommand() *cobra.Command {
 		Run: func(cmd *cobra.Command, args []string) {
 			fmt.Println("command: ", cmd.Name(), cmd.Short, cmd.Long)
 			fmt.Println("args: ", args, name)
+			fmt.Println("verbose value: ", verbose)
 		},
 	}
 	command.Flags().StringVarP(&name, "name", "n", "", "name名字")
