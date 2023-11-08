@@ -5,7 +5,6 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/fsnotify/fsnotify"
 	"github.com/gookit/goutil/fsutil"
 	logger "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -13,12 +12,8 @@ import (
 )
 
 func CommandName() string {
-	commandPath, err := os.Executable()
-	if err != nil {
-		commandPath = "unknown"
-	}
-	command := filepath.Base(commandPath)
-	return command
+	commandPath, _ := os.Executable()
+	return filepath.Base(commandPath)
 }
 
 // rootCmd 代表没有调用子命令时的基础命令
@@ -39,22 +34,21 @@ func Execute() {
 
 func initConfig() {
 	configName := CommandName()
-	configPath := os.Getenv("HOME") + "/." + strings.ToLower(configName) + "/config.yaml"
+	configFilePath := os.Getenv("HOME") + "/." + strings.ToLower(configName) + "/config.yaml"
 	configEnvPrefix := strings.ToUpper(configName)
-
-	if fsutil.FileExists(configPath) {
-		viper.SetConfigFile(configPath)
+	config := false
+	if fsutil.FileExists(configFilePath) {
+		viper.SetConfigFile(configFilePath)
+		config = true
 	}
-	viper.SetEnvPrefix(configEnvPrefix)
-
-	err := viper.ReadInConfig()
-	if err != nil {
-		logger.Errorf("CommandConfigInitError read in: %v", err)
-		return
+	if env, ok := os.LookupEnv(configEnvPrefix); ok {
+		viper.SetEnvPrefix(env)
+		config = true
 	}
-
-	viper.WatchConfig()
-	viper.OnConfigChange(func(e fsnotify.Event) {
-		logger.Infof("CommandConfigChanged: %s", e.Name)
-	})
+	if config {
+		err := viper.ReadInConfig()
+		if err != nil {
+			logger.Errorf("read config failed: %v", err)
+		}
+	}
 }
