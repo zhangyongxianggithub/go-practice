@@ -47,7 +47,7 @@ func initConfig() {
 		viper.SetEnvPrefix(env)
 	}
 	err = viper.ReadInConfig()
-	if _, ok := err.(viper.ConfigFileNotFoundError); !ok {
+	if _, ok := err.(viper.ConfigFileNotFoundError); err != nil && !ok {
 		logger.Errorf("read config failed: %v", err)
 	}
 }

@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var goCmd = &cobra.Command{
@@ -24,6 +25,7 @@ func createGoCommand() *cobra.Command {
 		},
 	}
 	command.Flags().StringVarP(&name, "name", "n", "", "name名字")
+	_ = viper.BindPFlag("gbi.go.name", command.Flags().Lookup("name"))
 	return command
 }
 func getGoCommand() *cobra.Command {
