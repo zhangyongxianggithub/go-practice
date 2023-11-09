@@ -11,7 +11,9 @@ var goCmd = &cobra.Command{
 	Use:   "go",
 	Short: "go 子命令",
 	Long:  `go 子命令`,
-	Run:   func(cmd *cobra.Command, args []string) {},
+	Run: func(cmd *cobra.Command, args []string) {
+		// 添加这个，不添加任何参数，会执行这个函数，如果不允许执行go，去掉这个函数
+	},
 }
 
 func createGoCommand() *cobra.Command {
@@ -21,12 +23,12 @@ func createGoCommand() *cobra.Command {
 		Short: "create go",
 		Run: func(cmd *cobra.Command, args []string) {
 			fmt.Println("command: ", cmd.Name(), cmd.Short, cmd.Long)
-			fmt.Println("args: ", args, name)
 			fmt.Println("verbose value: ", verbose)
+			fmt.Println("args: ", args, name, globalVar)
 		},
 	}
-	command.Flags().StringVarP(&name, "name", "n", "", "name名字")
-	_ = viper.BindPFlag("gbi.go.name", command.Flags().Lookup("name"))
+	command.PersistentFlags().StringVarP(&name, "name", "n", "", "name名字")
+	_ = viper.BindPFlag("gbi.go.name", command.PersistentFlags().Lookup("name"))
 	return command
 }
 func getGoCommand() *cobra.Command {

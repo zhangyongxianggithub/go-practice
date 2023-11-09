@@ -37,8 +37,11 @@ func Execute() {
 	}
 }
 
+var globalVar string
+
 func init() {
 	cobra.OnInitialize(initConfig)
+	rootCmd.PersistentFlags().StringVarP(&globalVar, "global", "g", "", "tests")
 	rootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "enable verbose output")
 }
 
@@ -60,4 +63,5 @@ func initConfig() {
 		logger.Errorf("read config failed: %v", err)
 	}
 	fmt.Println("init config run end")
+	fmt.Println("key::::", viper.GetString("gbi.go.name"))
 }
