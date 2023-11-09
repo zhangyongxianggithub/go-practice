@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"time"
 
 	"github.com/sirupsen/logrus"
 )
@@ -27,7 +28,12 @@ func main() {
 	//  log.Info("Failed to log to file, using default stderr")
 	// }
 
-	log.WithFields(logrus.Fields{
+	customFormatter := new(logrus.TextFormatter)
+	customFormatter.TimestampFormat = "2006-01-02 15:04:05"
+	customFormatter.FullTimestamp = true
+	log.SetFormatter(customFormatter)
+
+	log.WithTime(time.Now()).WithFields(logrus.Fields{
 		"animal": "dog",
 		"size":   10,
 	}).Info("一群舔狗出现了。")
