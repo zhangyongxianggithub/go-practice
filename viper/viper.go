@@ -20,5 +20,6 @@ func main() {
 	if err != nil {             // Handle errors reading the config.toml file
 		panic(fmt.Errorf("Fatal error config.toml file: %s \n", err))
 	}
+	fmt.Println(viper.GetString("ContentDir"))
 
 }
