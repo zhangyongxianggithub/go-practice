@@ -17,6 +17,6 @@ var sub1Cmd = &cobra.Command{
 }
 
 func init() {
-	sub1Cmd.Flags().StringVarP(&globalVar, "serverp1", "g", "", "tests")
+	sub1Cmd.Flags().StringVarP(&globalVar, "serverp1", "x", "", "tests")
 	rootCmd.AddCommand(sub1Cmd)
 }

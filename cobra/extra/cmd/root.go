@@ -46,9 +46,7 @@ var buildDate = time.Now().Format("20060102150405")
 func init() {
 	cobra.OnInitialize(initConfig)
 	rootCmd.SetVersionTemplate(CommandName() + " version " + rootCmd.Version + " build date " + buildDate + "\n")
-	rootCmd.SetUsageFunc(func(command *cobra.Command) error {
-
-	})
+	// rootCmd.SetUsageTemplate(CommandName() + " [command] [arg]")
 	rootCmd.PersistentFlags().StringVarP(&globalVar, "global", "g", "", "tests")
 	rootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "enable verbose output")
 }
