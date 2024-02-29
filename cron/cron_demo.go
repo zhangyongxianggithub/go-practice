@@ -12,7 +12,7 @@ import (
 */
 func main() {
 	c := cron.New()
-	c.AddFunc("0/1 * * * * *", func() { fmt.Println(time.Now(), "every second run") })
+	_ = c.AddFunc("0/1 * * * * *", func() { fmt.Println(time.Now(), "every second run") })
 	c.AddFunc("0/10 * * * * *", func() { fmt.Println(time.Now(), "every ten seconds run") })
 
 	c.AddFunc("@hourly", func() { fmt.Println("Every hour") })
