@@ -30,13 +30,13 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 	rootCmd.PersistentFlags().
-		StringVar(&cfgFile, "config", "", "config file (default is $HOME/.cobra.yaml)")
+		StringVar(&cfgFile, "config.json", "", "config.json file (default is $HOME/.cobra.yaml)")
 	// rootCmd.PersistentFlags().StringVarP(&projectBase, "projectbase", "b", "", "base project
 	// directory eg. github.com/spf13/")
 	rootCmd.PersistentFlags().
 		StringP("author", "a", "YOUR NAME", "Author name for copyright attribution")
 	// rootCmd.PersistentFlags().StringVarP(&userLicense, "license", "l", "", "Name of license for
-	// the project (can provide `licensetext` in config)")
+	// the project (can provide `licensetext` in config.json)")
 	rootCmd.PersistentFlags().Bool("viper", true, "Use Viper for configuration")
 	viper.BindPFlag("author", rootCmd.PersistentFlags().Lookup("author"))
 	viper.BindPFlag("projectbase", rootCmd.PersistentFlags().Lookup("projectbase"))
@@ -48,9 +48,9 @@ func init() {
 var cfgFile = ""
 
 func initConfig() {
-	// Don't forget to read config either from cfgFile or from home directory!
+	// Don't forget to read config.json either from cfgFile or from home directory!
 	if cfgFile != "" {
-		// Use config file from the flag.
+		// Use config.json file from the flag.
 		viper.SetConfigFile(cfgFile)
 	} else {
 		// Find home directory.
@@ -60,13 +60,13 @@ func initConfig() {
 			os.Exit(1)
 		}
 
-		// Search config in home directory with name ".cobra" (without extension).
+		// Search config.json in home directory with name ".cobra" (without extension).
 		viper.AddConfigPath(home)
 		viper.SetConfigName(".cobra")
 	}
 
 	if err := viper.ReadInConfig(); err != nil {
-		fmt.Println("Can't read config:", err)
+		fmt.Println("Can't read config.json:", err)
 		os.Exit(1)
 	}
 }

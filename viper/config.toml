@@ -1,3 +1,1 @@
-[ABC]
-abc = "abc"
-bcd = 1
+format = "toml-config"

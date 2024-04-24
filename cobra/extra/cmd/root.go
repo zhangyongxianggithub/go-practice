@@ -66,8 +66,8 @@ func initConfig() {
 	}
 	err = viper.ReadInConfig()
 	if _, ok := err.(viper.ConfigFileNotFoundError); err != nil && !ok {
-		logger.Errorf("read config failed: %v", err)
+		logger.Errorf("read config.json failed: %v", err)
 	}
-	fmt.Println("init config run end")
+	fmt.Println("init config.json run end")
 	fmt.Println("key::::", viper.GetString("gbi.go.name"))
 }
