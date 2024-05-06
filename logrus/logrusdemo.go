@@ -37,4 +37,8 @@ func main() {
 		"animal": "dog",
 		"size":   10,
 	}).Info("一群舔狗出现了。")
+	log.WithFields(logrus.Fields{
+		"animal": "dog",
+		"size":   10,
+	}).Info("一群舔狗出现了。")
 }
