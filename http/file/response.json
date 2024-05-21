@@ -1,0 +1,11 @@
+{
+  "code": 200,
+  "message": "请求成功",
+  "data": [
+    {
+      "chunk": "embedding:\n  name: bge-large-zh-v1.5\n  host: http://10.209.238.155:8302/embedding\n  limit: 30\n  timeout_seconds: 5\n  retry: 1\n  waitLockDuringSeconds: 300\n  releaseLockDuringSeconds: 10\n\ncodeEmbedding:\n  name: jina-embeddings-v2-base-code\n  host: http://10.209.238.155:8301/jinaembedding\n  limit: 30\n  timeout_seconds: 10\n  retry: 1\n  waitLockDuringSeconds: 300\n  releaseLockDuringSeconds: 10\n\nknowledge:\n  name: knowledge\n  host: http://10.63.41.18:8865/rest/v1/text/split\n  limit: 20\n  timeout_seconds: 20\n  retry: 1\n  waitLockDuringSeconds: 300\n  releaseLockDuringSeconds: 10\n\npostgres:\n  host: postgres://postgres:Comate%23123@10.63.41.18:8432/autowork_external?sslmode=disable\n\nkafka:\n  kafkaUser: autowork_offline\n  comateplusIndexTopicGroup: autowork-codesearch-offline-group\n  comateplusIndexTopic: autowork-codesearch-offline\n  autoworkIndexTopicGroup: autowork-codesearch-offline-group\n  autoworkIndexTopic: autowork-codesearch-offline\n  indexCodeFileQueueSize: 5\n  bootstrapServers: 10.63.41.18:8766,10.63.41.20:8767,10.31.80.18:8768\n  securityProtocol: plaintext\n  autoOffsetReset: earliest\n  acks: all\n\nbatchEmbeddingLineCount: 100\n\nredis:\n  host: 10.63.41.18:8353\n  password: Comate%123qaz\n  db: 0\n\n\n\n\n\n\n\n\n",
+      "start_line": 0,
+      "end_line": 47
+    }
+  ]
+}

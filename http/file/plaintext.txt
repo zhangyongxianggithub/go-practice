@@ -1,0 +1,56 @@
+embedding:
+  name: bge-large-zh-v1.5
+  host: http://10.209.238.155:8302/embedding
+  limit: 30
+  timeout_seconds: 5
+  retry: 1
+  waitLockDuringSeconds: 300
+  releaseLockDuringSeconds: 10
+
+codeEmbedding:
+  name: jina-embeddings-v2-base-code
+  host: http://10.209.238.155:8301/jinaembedding
+  limit: 30
+  timeout_seconds: 10
+  retry: 1
+  waitLockDuringSeconds: 300
+  releaseLockDuringSeconds: 10
+
+knowledge:
+  name: knowledge
+  host: http://10.63.41.18:8865/rest/v1/text/split
+  limit: 20
+  timeout_seconds: 20
+  retry: 1
+  waitLockDuringSeconds: 300
+  releaseLockDuringSeconds: 10
+
+postgres:
+  host: postgres://postgres:Comate%23123@10.63.41.18:8432/autowork_external?sslmode=disable
+
+kafka:
+  kafkaUser: autowork_offline
+  comateplusIndexTopicGroup: autowork-codesearch-offline-group
+  comateplusIndexTopic: autowork-codesearch-offline
+  autoworkIndexTopicGroup: autowork-codesearch-offline-group
+  autoworkIndexTopic: autowork-codesearch-offline
+  indexCodeFileQueueSize: 5
+  bootstrapServers: 10.63.41.18:8766,10.63.41.20:8767,10.31.80.18:8768
+  securityProtocol: plaintext
+  autoOffsetReset: earliest
+  acks: all
+
+batchEmbeddingLineCount: 100
+
+redis:
+  host: 10.63.41.18:8353
+  password: Comate%123qaz
+  db: 0
+
+
+
+
+
+
+
+
