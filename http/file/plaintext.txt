@@ -1,56 +1,68 @@
-embedding:
-  name: bge-large-zh-v1.5
-  host: http://10.209.238.155:8302/embedding
-  limit: 30
-  timeout_seconds: 5
-  retry: 1
-  waitLockDuringSeconds: 300
-  releaseLockDuringSeconds: 10
+Knowledge
+===
+用于处理KnowledgeBase相关逻辑，为AutoComate提供底层能力，[详细技术方案](https://ku.baidu-int.com/knowledge/HFVrC7hq1Q/_SKPgSwp2G/Hb6OQz5Jc7/8HfmKWdjIbQdgv)
 
-codeEmbedding:
-  name: jina-embeddings-v2-base-code
-  host: http://10.209.238.155:8301/jinaembedding
-  limit: 30
-  timeout_seconds: 10
-  retry: 1
-  waitLockDuringSeconds: 300
-  releaseLockDuringSeconds: 10
+代码结构说明
+---
+```shell
+baidu/devops-ai/konwledge
+├── knowledge
+│   ├── auth              # 鉴权相关逻辑
+│   ├── builder           # 索引构建相关逻辑
+│   ├── retrieval         # 检索相关逻辑
+│   ├── rerank            # 检索结果重排
+│   ├── common            # 通用逻辑，比如常数
+│   ├── config            # 配置文件
+│   ├── logs              # 日志文件
+│   ├── embedding         # 文本嵌入相关逻辑
+│   ├── llm               # 一言模型相关逻辑
+│   ├── router            # 对外部提供的API，具备简单的鉴权能力，依赖于FastAPI框架
+│   ├── service           # 知识集、知识管理的逻辑封装
+│   ├── store             # 存储相关逻辑
+│   ├── utils             # 工具类
+│   └── main.py
+│
+└── Dockerfile
+```
 
-knowledge:
-  name: knowledge
-  host: http://10.63.41.18:8865/rest/v1/text/split
-  limit: 20
-  timeout_seconds: 20
-  retry: 1
-  waitLockDuringSeconds: 300
-  releaseLockDuringSeconds: 10
+本地测试
+---
+一 镜像启动(废弃，镜像缺少相关的文件)
+```shell
+# 1、拉取镜像
+docker pull registry.baidubce.com/devops-ai/knowledge:1025-local-beta
 
-postgres:
-  host: postgres://postgres:Comate%23123@10.63.41.18:8432/autowork_external?sslmode=disable
+# 2、启动容器
+docker run --rm -it -p 8865:8865 --name knowledge \
+    -e CHAT_ENV=dev \
+    registry.baidubce.com/devops-ai/knowledge:1025-local-beta
 
-kafka:
-  kafkaUser: autowork_offline
-  comateplusIndexTopicGroup: autowork-codesearch-offline-group
-  comateplusIndexTopic: autowork-codesearch-offline
-  autoworkIndexTopicGroup: autowork-codesearch-offline-group
-  autoworkIndexTopic: autowork-codesearch-offline
-  indexCodeFileQueueSize: 5
-  bootstrapServers: 10.63.41.18:8766,10.63.41.20:8767,10.31.80.18:8768
-  securityProtocol: plaintext
-  autoOffsetReset: earliest
-  acks: all
+# 3、访问API文档
+http://localhost:8865/docs
 
-batchEmbeddingLineCount: 100
+# 4、操作步骤
+- 创建一个workspace，获得workspace_id
+- 调用`/rest/v1/knowledge/by-file`API，上传文件，测试过程中最好先上传txt文件。上传后开始处理，时间可能比较久，不要关闭页面。
+- 上传完毕，查看上传后的向量数据：http://bd-pmt-docker.bcc-bdbl.baidu.com:8092/
+- 调用`/rest/v1/knowledges/search`API查询数据
+```
+二 直接启动<br>
+1、安装依赖的文件<br>
+[文件链接](https://ku.baidu-int.com/knowledge/HFVrC7hq1Q/_SKPgSwp2G/Hb6OQz5Jc7/h1Yol7_L8AL8Wi)
+- token文件，路径参考配置文件
+- nltk_data文件，路径参考如下代码
+```python
+import nltk
 
-redis:
-  host: 10.63.41.18:8353
-  password: Comate%123qaz
-  db: 0
+if __name__ == "__main__":
+    print(nltk.find("."))
+```
+- config.json文件，路径参考配置文件
 
+2、启动
 
-
-
-
-
-
-
+## 镜像升级
+python基础镜像0.4版本不包含requirements.txt文件中的依赖，需要手动安装<br>
+python基础镜像0.5版本中加入了requirements.txt文件中的依赖，后续如果新增依赖需要更新该文件并重新构建基础镜像。<br>
+例如基础镜像更新为1.0版本后需要再增加依赖，那么则在1.0版安装新增的依赖即可，原先已安装的依赖无需重复安装。<br>
+python基础镜像0.6版本中加入了chromium、chromium、dbus等
