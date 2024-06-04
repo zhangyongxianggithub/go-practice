@@ -3,19 +3,20 @@ package main
 import (
 	"log/slog"
 	"os"
+	"runtime/debug"
 )
 
 func main() {
-	opts := &slog.HandlerOptions{
-		AddSource: true,
-		Level:     slog.LevelDebug,
-	}
-
-	handler := slog.NewJSONHandler(os.Stdout, opts)
+	handler := slog.NewJSONHandler(os.Stdout, nil)
+	buildInfo, _ := debug.ReadBuildInfo()
 
 	logger := slog.New(handler)
-	logger.Debug("Debug message")
-	logger.Info("Info message")
-	logger.Warn("Warning message")
-	logger.Error("Error message")
+
+	child := logger.With(
+		slog.Group("program_info",
+			slog.Int("pid", os.Getpid()),
+			slog.String("go_version", buildInfo.GoVersion),
+		),
+	)
+	child.Info("Info message")
 }
