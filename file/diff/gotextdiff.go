@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/hexops/gotextdiff"
 	"github.com/hexops/gotextdiff/myers"
 	"github.com/hexops/gotextdiff/span"
@@ -13,4 +14,9 @@ func main() {
 
 	diff := fmt.Sprint(unified)
 	fmt.Println(diff)
+	for _, chunk := range unified.Hunks {
+		for _, line := range chunk.Lines {
+			fmt.Printf("%v-%v\n", line.Kind == gotextdiff.Insert, line.Content)
+		}
+	}
 }
